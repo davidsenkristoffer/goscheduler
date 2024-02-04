@@ -1,0 +1,24 @@
+{{ define "schedule" }}
+<div style="display: flex; gap: 2em;">
+    <div id="projects">
+        <h2>
+            Prosjekter
+        </h2>
+        <ul style="list-style-type: lower-latin;">
+            {{ range .Projects }}
+            <li>{{ .Name }}</li>
+            {{end}}
+        </ul>
+    </div>
+    <div id="users">
+        <h2>
+            Brukere
+        </h2>
+        <ul style="list-style-type: lower-greek;">
+            {{ range .Users }}
+            <li>{{ .Name }}</li>
+            {{end}}
+        </ul>
+    </div>
+</div>
+{{end}}
