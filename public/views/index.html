@@ -2,13 +2,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="htmx-config" content='{"globalViewTransitions":"true"}'>
         <script defer src="static/htmx.min.js"></script>
     </head>
     
     <body>
         <div id="main">
             <h1>{{.}}</h1>
-            <button hx-get="/schedule" hx-push-url="true" hx-target="#main">
+            <button hx-get="/schedule" hx-target="#main">
                 Lag en ny template
             </button>
             <button>

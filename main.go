@@ -1,17 +1,39 @@
 package main
 
 import (
+	"fmt"
+	types "goschedule/types"
+	"html/template"
+
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
 	e := echo.New()
-
-	e.Use(middleware.Recover())
+	t := &types.Template{
+		Templates: template.Must(template.ParseGlob("public/views/*.html")),
+	}
+	e.Renderer = t
 	e.Static("/static", "static")
-	e.File("/", "index.html")
-	e.File("/contact/:id/edit", "editcontact.html")
+
+	e.GET("/", index)
+	e.GET("/schedule", newSchedule)
+	e.POST("/schedule/user", newUser)
 
 	e.Logger.Fatal(e.Start(":1323"))
+}
+
+func index(c echo.Context) error {
+	return c.Render(200, "index", "hello, world!")
+}
+
+func newSchedule(c echo.Context) error {
+	return c.Render(200, "schedule", types.DummyData())
+}
+
+func newUser(c echo.Context) error {
+	name := c.FormValue("name")
+	user := *types.NewUser(name)
+	fmt.Printf("User: %s", user.Name)
+	return c.Render(201, "user", user)
 }

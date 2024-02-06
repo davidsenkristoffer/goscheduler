@@ -14,11 +14,23 @@
         <h2>
             Brukere
         </h2>
-        <ul style="list-style-type: lower-greek;">
-            {{ range .Users }}
-            <li>{{ .Name }}</li>
-            {{end}}
-        </ul>
+        {{ template "users" .Users }}
+        <form hx-post="/schedule/user" hx-target="#users-list" hx-swap="beforeend">
+            Name: <input type="text" name="name">
+            <button type="submit">Lag ny bruker</button>
+        </form>
     </div>
 </div>
 {{end}}
+
+{{ define "users" }}
+<ul style="list-style-type: lower-greek;" id="users-list">
+    {{ range . }}
+        {{ template "user" . }}
+    {{end}}
+</ul>
+{{ end }}
+
+{{ define "user" }}
+<li>{{ .Name }}</li>
+{{ end }}
