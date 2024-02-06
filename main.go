@@ -18,6 +18,8 @@ func main() {
 
 	e.GET("/", index)
 	e.GET("/schedule", newSchedule)
+	e.GET("/schedule/:id", getSchedule)
+	e.GET("/schedule/edit", editSchedule)
 	e.POST("/schedule/user", newUser)
 
 	e.Logger.Fatal(e.Start(":1323"))
@@ -25,6 +27,14 @@ func main() {
 
 func index(c echo.Context) error {
 	return c.Render(200, "index", "hello, world!")
+}
+
+func getSchedule(c echo.Context) error {
+	return c.Render(200, "getschedule", types.DummySchedule())
+}
+
+func editSchedule(c echo.Context) error {
+	return c.Render(200, "editschedule", types.DummySchedule())
 }
 
 func newSchedule(c echo.Context) error {

@@ -18,3 +18,14 @@ func DummyData() *ScheduleTemplate {
 	t := &ScheduleTemplate{Projects: projects, Users: users}
 	return t
 }
+
+func DummySchedule() *Schedule {
+	template := DummyData()
+	schedule := &Schedule{
+		Template: template,
+		Values: [][]float32{
+			{1, 1.5}, {2, 3.5},
+		},
+	}
+	return schedule
+}

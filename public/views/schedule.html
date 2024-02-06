@@ -34,3 +34,41 @@
 {{ define "user" }}
 <li>{{ .Name }}</li>
 {{ end }}
+
+{{ define "getschedule" }}
+<table>
+    <thead>
+        {{ range .Template.Users }}
+        <th>{{.Name}}</th>
+        {{ end }}
+    </thead>
+    <tbody>
+        {{ range .Values }}
+        <tr>
+            {{ range . }} <td>{{.}}</td> {{ end }}
+        </tr>
+        {{ end }}
+    </tbody>
+</table>
+<button hx-get="/schedule/edit" hx-target="previous table" hx-swap="outerHTML">Rediger</button>
+{{ end }}
+
+{{ define "editschedule" }}
+<table>
+    <thead>
+        {{ range .Template.Users }}
+        <th>{{.Name}}</th>
+        {{ end }}
+    </thead>
+    <tbody>
+        {{ range .Values }}
+        <tr>
+            {{ range . }} 
+            <td><input type="number" value="{{.}}"></td> 
+            {{ end }}
+        </tr>
+        {{ end }}
+    </tbody>
+</table>
+<button hx-post="/schedule/edit/1" hx-target="previous table" hx-swap="outerHTML">Lagre</button>
+{{ end }}
